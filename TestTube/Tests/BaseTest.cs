@@ -9,6 +9,7 @@ using FluentAssertions;
 using OpenQA.Selenium.Support.UI;
 using FluentAssertions.Execution;
 using TestTube.PageObjectModels;
+using OpenQA.Selenium.Interactions;
 
 namespace TestTube.Tests
 {
@@ -21,6 +22,7 @@ namespace TestTube.Tests
             var driver = new DriverManager().SetUpDriver(new ChromeConfig());
             Driver = new ChromeDriver();
             //WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+            //Actions actions = new Actions(Driver);
         }
 
         public void Dispose()

@@ -13,18 +13,22 @@ using TestTube.Tests;
 using AngleSharp.Dom;
 using System.Runtime.Intrinsics.X86;
 using System.Diagnostics.Metrics;
+using OpenQA.Selenium.Interactions;
 
 namespace TestTube
 
 {
-    public sealed class PantsDotOrgTests : BaseTest
+    public sealed class PantsTests : BaseTest
     {
         private readonly ITestOutputHelper testOutputHelper;
         PantsDotOrg _pantsDotOrg;
         TwitterPage _twitterPage;
         WordpressLoginPage _wordpressLoginPage;
+        PantsHolidaysPage _pantsHolidaysPage;
+        FileUploaderPage _fileUploaderPage;
+        
 
-        public PantsDotOrgTests(ITestOutputHelper testOutputHelper)
+        public PantsTests(ITestOutputHelper testOutputHelper)
         {
             this.testOutputHelper = testOutputHelper;
 
@@ -36,6 +40,13 @@ namespace TestTube
 
             WordpressLoginPage wordpressLoginPage = new WordpressLoginPage();
             _wordpressLoginPage = wordpressLoginPage;
+
+            PantsHolidaysPage pantsHolidaysPage = new PantsHolidaysPage(Driver);
+            _pantsHolidaysPage = pantsHolidaysPage;
+
+            FileUploaderPage fileUploaderPage = new FileUploaderPage(Driver);
+            _fileUploaderPage = fileUploaderPage;
+
         }
 
         // Test 1

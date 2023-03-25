@@ -9,11 +9,6 @@ namespace TestTube
     {
         private readonly ChromeDriver Driver;
 
-        public TheArtOfPantsPages(ChromeDriver driver)
-        {
-            Driver = driver;
-        }
-
         internal string TheArtOfPantsUrl = "https://theartofpants.com/";
         internal string TheArtOfPantsGreetingCardsUrl = "https://theartofpants.com/collections/greeting-cards";
 
@@ -26,7 +21,7 @@ namespace TestTube
         string pantsArtCardsXpath = "//li[@class=\"grid__item\"]";
         internal By PantsArtCards { get => By.XPath(pantsArtCardsXpath); }
 
-        string shopMorePantsCardsXpath = "//li[@class=\"grid__item\"]";
+        string shopMorePantsCardsXpath = "//li[@class=\"collection-list__item grid__item\"]";
         internal By ShopMorePantsCards { get => By.XPath(shopMorePantsCardsXpath); }
 
         string topNavBarItemsXpath = "//nav[@class=\"header__inline-menu\"]//child::span";
@@ -56,11 +51,48 @@ namespace TestTube
         string noPantsHeaderClass = "cart__empty-text";
         internal By NoPantsHeader { get => By.ClassName(noPantsHeaderClass); }
 
+        public TheArtOfPantsPages(ChromeDriver driver)
+        {
+            Driver = driver;
+        }
+
+        internal void NavigateToArtOfPantsUrl()
+        {
+            Driver.Navigate().GoToUrl(TheArtOfPantsUrl);
+        }
+
+        internal void NavigateToArtOfPantsGreetingCardsUrl()
+        {
+            Driver.Navigate().GoToUrl(TheArtOfPantsGreetingCardsUrl);
+        }
+
         internal void ChooseFirstGreetingCard()
         {
             IWebElement firstGreetingCard = Driver.FindElements(PantsArtCards).First();
             firstGreetingCard.Click();
         }
+
+        internal void ClickAddToCartButton()
+        {
+            Driver.FindElement(AddToCartButton).Click();
+        }
+
+        internal void ClickInfoNavDropdown()
+        {
+            Driver.FindElement(InfoTopNavItem).Click();
+        }
+
+        internal void ClickSearchIcon()
+        {
+            Driver.FindElement(SearchIcon).Click();
+        }
+
+        internal void ClickViewMyCart()
+        {
+            Driver.FindElement(ViewMyCartLink).Click();
+        }
+
+
     }
 }
 

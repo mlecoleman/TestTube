@@ -1,6 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 
 namespace TestTube.PageObjectModels
@@ -8,11 +9,6 @@ namespace TestTube.PageObjectModels
 	public class RedAntsPantsPage
 	{
         private readonly ChromeDriver Driver;
-
-        public RedAntsPantsPage(ChromeDriver driver)
-        {
-            Driver = driver;
-        }
 
         internal string RedAntsPantsUrl = "https://redantspants.com/";
 
@@ -24,6 +20,16 @@ namespace TestTube.PageObjectModels
 
         string noPantsPicsMenuItemId = "menu-item-11636";
         internal By PantsPicsMenuItem { get => By.Id(noPantsPicsMenuItemId); }
+
+        public RedAntsPantsPage(ChromeDriver driver)
+        {
+            Driver = driver;
+        }
+
+        internal void NavigateToRedAntsPantsUrl()
+        {
+            Driver.Navigate().GoToUrl(RedAntsPantsUrl);
+        }
     }
 }
 

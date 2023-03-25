@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
@@ -8,11 +9,6 @@ namespace TestTube.PageObjectModels
 	public class FileUploaderPage
 	{
         private readonly ChromeDriver Driver;
-
-        public FileUploaderPage(ChromeDriver driver)
-        {
-            Driver = driver;
-        }
 
         internal string FileUploaderUrl = "https://the-internet.herokuapp.com/upload";
 
@@ -27,6 +23,23 @@ namespace TestTube.PageObjectModels
 
         string uploadedFilesPanelId = "uploaded-files";
         internal By UploadedFilesPanel { get => By.Id(uploadedFilesPanelId); }
+
+        public FileUploaderPage(ChromeDriver driver)
+        {
+            Driver = driver;
+        }
+
+        internal void NavigateToFileUploaderUrl()
+        {
+            Driver.Navigate().GoToUrl(FileUploaderUrl); ;
+        }
+
+        internal void UploadPantsJacketImage(string imagePath)
+        {
+            Driver.FindElement(ChooseFileButton).SendKeys(imagePath);
+            Driver.FindElement(UploadButton).Click();
+
+        }
     }
 }
 

@@ -19,7 +19,6 @@ namespace TestTube.Tests
         protected readonly WebDriverWait _wait;
         protected readonly Actions _actions;
 
-
         public BaseTest()
 		{
             var driver = new DriverManager().SetUpDriver(new ChromeConfig());
@@ -30,7 +29,6 @@ namespace TestTube.Tests
 
             Actions actions = new Actions(Driver);
             _actions = actions;
-
         }
 
         public void Dispose()

@@ -17,14 +17,9 @@ using System.Diagnostics.Metrics;
 
 namespace TestTube.PageObjectModels
 {
-    internal class PantsHolidaysPage
+    internal class PantsHolidaysPages
     {
         private readonly ChromeDriver Driver;
-
-        public PantsHolidaysPage(ChromeDriver driver)
-        {
-            Driver = driver;
-        }
 
         internal string noPantsDayUrl = "https://www.timeanddate.com/holidays/fun/no-pants-day";
 
@@ -39,11 +34,26 @@ namespace TestTube.PageObjectModels
         string july27thXpath = "//a[@href='/holidays/fun/take-your-pants-for-a-walk-day']";
         internal By july27th { get => By.XPath(july27thXpath); }
 
+        public PantsHolidaysPages(ChromeDriver driver)
+        {
+            Driver = driver;
+        }
+
         internal void chooseJuly2023()
         {
             IWebElement monthYearDropdown = Driver.FindElement(By.Id("month"));
             SelectElement monthYear = new SelectElement(monthYearDropdown);
             monthYear.SelectByText("July 2023");
+        }
+
+        internal void NavigateToNoPantsDayUrl()
+        {
+            Driver.Navigate().GoToUrl(noPantsDayUrl);
+        }
+
+        internal void CLickOnJuly27th()
+        {
+            Driver.FindElement(july27th).Click();
         }
     }
 }

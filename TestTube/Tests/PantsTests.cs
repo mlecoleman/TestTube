@@ -25,32 +25,32 @@ namespace TestTube
         PantsDotOrgPages _pantsDotOrg;
         TwitterPage _twitterPage;
         WordpressLoginPage _wordpressLoginPage;
-        PantsHolidaysPage _pantsHolidaysPage;
+        PantsHolidaysPages _pantsHolidaysPage;
         FileUploaderPage _fileUploaderPage;
-        RedAntsPantsPage _redAntsPantsCafe;
+        RedAntsPantsPage _redAntsPantsPage;
         TheArtOfPantsPages _artOfPantsPages;
 
         public PantsTests(ITestOutputHelper testOutputHelper)
         {
             this.testOutputHelper = testOutputHelper;
 
-            PantsDotOrgPages pantsDotOrg = new PantsDotOrgPages();
+            PantsDotOrgPages pantsDotOrg = new PantsDotOrgPages(Driver);
             _pantsDotOrg = pantsDotOrg;
 
-            TwitterPage twitterPage = new TwitterPage();
+            TwitterPage twitterPage = new TwitterPage(Driver);
             _twitterPage = twitterPage;
 
-            WordpressLoginPage wordpressLoginPage = new WordpressLoginPage();
+            WordpressLoginPage wordpressLoginPage = new WordpressLoginPage(Driver);
             _wordpressLoginPage = wordpressLoginPage;
 
-            PantsHolidaysPage pantsHolidaysPage = new PantsHolidaysPage(Driver);
+            PantsHolidaysPages pantsHolidaysPage = new PantsHolidaysPages(Driver);
             _pantsHolidaysPage = pantsHolidaysPage;
 
             FileUploaderPage fileUploaderPage = new FileUploaderPage(Driver);
             _fileUploaderPage = fileUploaderPage;
 
             RedAntsPantsPage redAntsPantsPage = new RedAntsPantsPage(Driver);
-            _redAntsPantsCafe = redAntsPantsPage;
+            _redAntsPantsPage = redAntsPantsPage;
 
             TheArtOfPantsPages theArtOfPantsPages = new TheArtOfPantsPages(Driver);
             _artOfPantsPages = theArtOfPantsPages;
@@ -65,12 +65,12 @@ namespace TestTube
         {
             //testOutputHelper.WriteLine("example");
             // Arrange - Navigate to wordpress site pants.org
-            Driver.Navigate().GoToUrl(_pantsDotOrg.pantsDotOrgUrl);
+            _pantsDotOrg.NavigateToPantsDotOrg();
 
             // Act - Click on the Twitter Button/Link and wait for the new tab to be fully loaded
-            Driver.FindElement(_pantsDotOrg.TwitterButton).Click();
+            _pantsDotOrg.ClickOnTwitterButton();
             Driver.SwitchTo().Window(Driver.WindowHandles.Last());
-            _wait.Until(c => Driver.FindElement(_twitterPage.gitTwitterUserUrlLink).Displayed);
+            _wait.Until(c => Driver.FindElement(_twitterPage.TwitterUserUrlLink).Displayed);
 
             // Assert - 2 Windows are open and the new window has the expected Twitter title & URL
             using (new AssertionScope())
@@ -83,10 +83,45 @@ namespace TestTube
 
         // Test 2
         [Fact]
+        public void TestPagination()
+        {
+            // Arrange - Navigate to wordpress site pants.org
+            _pantsDotOrg.NavigateToPantsDotOrg();
+            //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
+
+
+            // Act - Click "3" in pagination
+            _pantsDotOrg.ClickOnPage3InPagination();
+
+            // Assert - The Url contains page 3 & current Pagination should be 3
+            using (new AssertionScope())
+            {
+                Driver.Url.Should().Contain("page/3");
+                Driver.FindElement(_pantsDotOrg.PaginationCurrentPage).Text.Should().Be("3");
+            }
+        }
+
+        // Test 3
+        [Fact]
+        public void TestSiteTitleRedirectsToHomePage()
+        {
+            // Arrange - Navigate to url for pants github
+            //Driver.Manage().Window.Maximize();
+            _pantsDotOrg.NavigateToPantsDotOrg();
+
+            // Act - Click on site Title
+            _pantsDotOrg.ClickOnPageTitle();
+
+            // Assert - Clickon the title redirects to the Home Page
+            Driver.Url.Should().Be(_pantsDotOrg.pantsDotOrgUrl);
+        }
+
+        // Test 4
+        [Fact]
         public void NavigateToAboutMeTest()
         {
             // Arrange - Navigate to pants.org 
-            Driver.Navigate().GoToUrl(_pantsDotOrg.pantsDotOrgUrl);
+            _pantsDotOrg.NavigateToPantsDotOrg();
 
             // Act - Click on About Me in the nav bar
             Driver.FindElement(_pantsDotOrg.NavBarAboutMe).Click();
@@ -99,17 +134,15 @@ namespace TestTube
             }
         }
 
-        // Test 3
+        // Test 5
         [Fact]
         public void PantsSearchBarTest()
         {
             // Arrange - Navigate to pants.org 
-            Driver.Navigate().GoToUrl(_pantsDotOrg.pantsDotOrgUrl);
+            _pantsDotOrg.NavigateToPantsDotOrg();
 
             // Act - Use the page search bar to search for Pants
-            Driver.FindElement(_pantsDotOrg.SearchBar).SendKeys("Pants");
-            Driver.FindElement(_pantsDotOrg.SearchBar).SendKeys(Keys.Return);
-
+            _pantsDotOrg.SearchBarSendKeys("Pants" + Keys.Return);
 
             // Assert - The header and url contain the search query (Pants)
             using (new AssertionScope())
@@ -119,7 +152,7 @@ namespace TestTube
             }
         }
 
-        // Test 4
+        // Test 6
         // Meets Requirement:
         // Negative Test
         [Fact]
@@ -127,14 +160,11 @@ namespace TestTube
         {
             // Arrange - Navigate to pants.org (I know I should probably just navigate directly to the
             // Wordpress login page, but pants.org is funnier)
-            Driver.Navigate().GoToUrl(_pantsDotOrg.pantsDotOrgUrl);
+            _pantsDotOrg.NavigateToPantsDotOrg();
 
             // Act - Click on Wordpress Login link and attempt to login without proving Humanity 
-            Driver.FindElement(_pantsDotOrg.wordpressLoginLink).Click();
-            Driver.FindElement(_wordpressLoginPage.emailAddressInput).SendKeys("pants@example.com");
-            Driver.FindElement(_wordpressLoginPage.passwordInput).SendKeys("pantsdotorgpassword");
-            Driver.FindElement(_wordpressLoginPage.proveHumanityInput).SendKeys("");
-            Driver.FindElement(_wordpressLoginPage.loginButton).Click();
+            _pantsDotOrg.NavigateWordPressLoginPage();
+            _wordpressLoginPage.WordpressLoginFieldsSendKeysAndLogin("pants@example.com", "PantsPasowrd123", "");
             _wait.Until(c => Driver.FindElement(_wordpressLoginPage.notHumanErrorPage).Displayed);
 
             // Assert - Logging in without proving Humanity loads error page with expected error message
@@ -145,18 +175,18 @@ namespace TestTube
             }
         }
 
-        // Test 5
+        // Test 7
         // Meets Requirement:
         // A date picker
         [Fact]
         public void PantsHolidaysCalendarPicker()
         {
             // Arrange - Navigate to url for May 5th 2023 - No Pants Day
-            Driver.Navigate().GoToUrl(_pantsHolidaysPage.noPantsDayUrl);
+            _pantsHolidaysPage.NavigateToNoPantsDayUrl();
 
             // Act - Select Date July 27th - Take your Pants for a Walk Day
             _pantsHolidaysPage.chooseJuly2023();
-            Driver.FindElement(_pantsHolidaysPage.july27th).Click();
+            _pantsHolidaysPage.CLickOnJuly27th();
             Driver.SwitchTo().Window(Driver.WindowHandles.Last());
 
 
@@ -168,19 +198,18 @@ namespace TestTube
             }
         }
 
-        // Test 6
+        // Test 8
         // Meets Requirement:
         // A file upload
         [Fact]
         public void UploadImageOfPantsTest()
         {
             // Arrange - Navigate to url for file uploader
-            Driver.Navigate().GoToUrl(_fileUploaderPage.FileUploaderUrl);
+            _fileUploaderPage.NavigateToFileUploaderUrl();
 
             // Act - Choose ann image and upload it
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            Driver.FindElement(_fileUploaderPage.ChooseFileButton).SendKeys(path + "/Upload/PantsJacket.jpg");
-            Driver.FindElement(_fileUploaderPage.UploadButton).Click();
+            _fileUploaderPage.UploadPantsJacketImage(path + "/Upload/PantsJacket.jpg");
 
             // Assert - Image uploaded panel is present with file text & File Uploaded! header is displayed
             using (new AssertionScope())
@@ -191,30 +220,30 @@ namespace TestTube
             }
         }
 
-        // Test 7
+        // Test 9
         // Meets Requirement:
         // A hover-over or tooltip
         [Fact]
         public void TestAnthillHoverOverDropdownMenu()
         {
             // Arrange - Navigate to url for Red Ants Pants
-            Driver.Navigate().GoToUrl(_redAntsPantsCafe.RedAntsPantsUrl);
+            _redAntsPantsPage.NavigateToRedAntsPantsUrl();
 
             // Act - Hover over ANTHILL item in nav bar
-            _actions.MoveToElement(Driver.FindElement(_redAntsPantsCafe.AnthillNavItem)).Perform();
-            _wait.Until(c => Driver.FindElement(_redAntsPantsCafe.PantsPicsMenuItem).Displayed);
+            _actions.MoveToElement(Driver.FindElement(_redAntsPantsPage.AnthillNavItem)).Perform();
+            _wait.Until(c => Driver.FindElement(_redAntsPantsPage.PantsPicsMenuItem).Displayed);
 
             // Assert - The contributions tooltip appears for No Pants Day (May 5th)
-            Driver.FindElement(_redAntsPantsCafe.PantsPicsMenuItem).Displayed.Should().BeTrue();
+            Driver.FindElement(_redAntsPantsPage.PantsPicsMenuItem).Displayed.Should().BeTrue();
         }
 
-        // Test 8
+        // Test 10
         [Fact]
         public void TestExpectedNumberOfArtCards()
         {
             // Arrange - Navigate to url for The Art Of Pants
             // Act - View The Art Of Pants Page
-            Driver.Navigate().GoToUrl(_artOfPantsPages.TheArtOfPantsUrl);
+            _artOfPantsPages.NavigateToArtOfPantsUrl();
 
             // Assert - There should only be 9 Featured Pants Art Cards and 6 Shop More Pants Cards
             using (new AssertionScope())
@@ -224,17 +253,17 @@ namespace TestTube
             }
         }
 
-        // Test 9
+        // Test 11
         [Fact]
         public void TestAddingGreetingCardToShoppingCart()
         {
             // Arrange - Navigate to url for The Art Of Pants Greeting Cards page
-            Driver.Navigate().GoToUrl(_artOfPantsPages.TheArtOfPantsGreetingCardsUrl);
+            _artOfPantsPages.NavigateToArtOfPantsGreetingCardsUrl();
 
             // Act - Click on first greeting card on greeting cards page
             _artOfPantsPages.ChooseFirstGreetingCard();
-            Driver.FindElement(_artOfPantsPages.AddToCartButton).Click();
-            _wait.Until(c => Driver.FindElement(_artOfPantsPages.CartNotification).Displayed);
+            _artOfPantsPages.ClickAddToCartButton();
+            _wait.Until(c => Driver.FindElement(_artOfPantsPages.ItemAddedToCartHeader).Displayed);
 
             // Assert - Item added to cart notification appears and shows confirmation header
             using (new AssertionScope())
@@ -244,15 +273,15 @@ namespace TestTube
             }
         }
 
-        // Test 10
+        // Test 12
         [Fact]
         public void TestTopNavBarInfoDropdownOptions()
         {
             // Arrange - Navigate to url for the art of pants
-            Driver.Navigate().GoToUrl(_artOfPantsPages.TheArtOfPantsUrl);
+            _artOfPantsPages.NavigateToArtOfPantsUrl();
 
             // Act - Click on the Info dropdown
-            Driver.FindElement(_artOfPantsPages.InfoTopNavItem).Click();
+            _artOfPantsPages.ClickInfoNavDropdown();
             _wait.Until(c => Driver.FindElement(_artOfPantsPages.InfoOptions).Displayed);
             List<string> infoOptions= new List<string>(Driver.FindElements(_artOfPantsPages.InfoOptions).Select(iw => iw.Text));
 
@@ -261,32 +290,31 @@ namespace TestTube
             infoOptions.Should().ContainInConsecutiveOrder("Contact", "Shipping Info", "FAQ");
         }
 
-        // Test 11
+        // Test 13
         [Fact]
         public void TestSearchBarIcon()
         {
             // Arrange - Navigate to url for the art of pants
-            Driver.Navigate().GoToUrl(_artOfPantsPages.TheArtOfPantsUrl);
+            _artOfPantsPages.NavigateToArtOfPantsUrl();
 
             // Act - Click on search icon
-            Driver.FindElement(_artOfPantsPages.SearchIcon).Click();
+            _artOfPantsPages.ClickSearchIcon();
             _wait.Until(c => Driver.FindElement(_artOfPantsPages.PantsFinder).Displayed);
-
 
             // Assert - The Pants Finder should be displayed
             Driver.FindElement(_artOfPantsPages.PantsFinder).Displayed.Should().BeTrue();
         }
 
-        // Test 12
+        // Test 14
         [Fact]
         public void TestRemovingItemFromShoppingCart()
         {
             // Arrange - Add an item to the shopping cart and navigate to shopping cart
-            Driver.Navigate().GoToUrl(_artOfPantsPages.TheArtOfPantsGreetingCardsUrl);
+            _artOfPantsPages.NavigateToArtOfPantsGreetingCardsUrl();
             _artOfPantsPages.ChooseFirstGreetingCard();
-            Driver.FindElement(_artOfPantsPages.AddToCartButton).Click();
+            _artOfPantsPages.ClickAddToCartButton();
             _wait.Until(c => Driver.FindElement(_artOfPantsPages.CartNotification).Displayed);
-            Driver.FindElement(_artOfPantsPages.ViewMyCartLink).Click();
+            _artOfPantsPages.ClickViewMyCart();
 
             // Act - Remove Item from Shopping Cart
             Driver.FindElement(_artOfPantsPages.RemoveItem).Click();
@@ -301,12 +329,12 @@ namespace TestTube
             }
         }
 
-        // Test 13
+        // Test 15
         [Fact]
         public void TestTopNavBar()
         {
             // Arrange - Navigate to url for pants github
-            Driver.Navigate().GoToUrl(_artOfPantsPages.TheArtOfPantsUrl);
+            _artOfPantsPages.NavigateToArtOfPantsUrl();
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
             //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
 
@@ -321,51 +349,6 @@ namespace TestTube
                 navItems.Should().ContainInConsecutiveOrder("Signed Prints", "Greeting Cards", "More Pants Stuff", "Info");
             }
         }
-
-        // Test 14
-        [Fact]
-        public void TestPagination()
-        {
-            // Arrange - Navigate to wordpress site pants.org
-            Driver.Navigate().GoToUrl(_pantsDotOrg.pantsDotOrgUrl);
-            //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
-
-
-            // Act - Click "3" in pagination
-            Driver.FindElements(_pantsDotOrg.paginationNumbers)[1].Click();
-
-            // Assert - The contributions tooltip appears for No Pants Day (May 5th)
-            using (new AssertionScope())
-            {
-                Driver.Url.Should().Contain("page/3");
-                Driver.FindElement(_pantsDotOrg.PaginationCurrentPage).Text.Should().Be("3");
-            }
-        }
-
-        //// Test 15
-        //[Fact]
-        //public void Test8()
-        //{
-        //    // Arrange - Navigate to url for pants github
-        //    //Driver.Manage().Window.Maximize();
-        //    Driver.Navigate().GoToUrl(_redAntsPantsCafe.RedAntsPantsUrl);
-        //    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
-        //    //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
-
-
-        //    // Act - Hover over No Pants Day (May 5th)
-        //    //_actions.MoveToElement(Driver.FindElement(_pantsGithub.May5thSquare)).Perform();
-        //    //_actions.ScrollToElement(Driver.FindElement(_antsPantsCafe.About)).Perform();
-        //    //_actions.MoveToElement(Driver.FindElement(_redAntsPantsCafe.About)).Perform();
-
-        //    // Assert - The contributions tooltip appears for No Pants Day (May 5th)
-        //    using (new AssertionScope())
-        //    {
-        //        Driver.FindElement(_redAntsPantsCafe.ContributionsTooltip).Displayed.Should().BeTrue();
-        //        //Driver.FindElement(_fileUploaderPage.UploadedFilesPanel).Text.Should().Be("Pants.jpg");
-        //        //Driver.FindElement(_fileUploaderPage.FileUploadedHeader).Displayed.Should().BeTrue();
-        //    }
-        //}
     }
 }
 

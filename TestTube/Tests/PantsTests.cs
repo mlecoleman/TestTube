@@ -150,7 +150,7 @@ namespace TestTube
             }
         }
 
-        // Test 4
+        // Test 5
         // Meets Requirement:
         // A date picker
         [Fact]
@@ -173,7 +173,7 @@ namespace TestTube
             }
         }
 
-        // Test 5
+        // Test 6
         // Meets Requirement:
         // A file upload
         [Fact]
@@ -182,8 +182,9 @@ namespace TestTube
             // Arrange - Navigate to url for file uploader
             Driver.Navigate().GoToUrl(_fileUploaderPage.FileUploaderUrl);
 
-            // Act - Choose ann image and upload it 
-            Driver.FindElement(_fileUploaderPage.ChooseFileButton).SendKeys(@"/Users/ecoleman/Desktop/coding/cl/qa-course-2-jan-2023/TestTube/TestTube/Upload/Pants.jpg");
+            // Act - Choose ann image and upload it
+            string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+            Driver.FindElement(_fileUploaderPage.ChooseFileButton).SendKeys(path + "/Upload/Pants.jpg");
             Driver.FindElement(_fileUploaderPage.UploadButton).Click();
 
             // Assert - Image uploaded panel is present with file text & File Uploaded! header is displayed

@@ -10,12 +10,12 @@ using OpenQA.Selenium.Support.UI;
 using FluentAssertions.Execution;
 using TestTube.PageObjectModels;
 using OpenQA.Selenium.Interactions;
-
+ 
 namespace TestTube.Tests
 {
-	public class BaseTest : IDisposable
+    public class BaseTest : IDisposable
     {
-        protected readonly ChromeDriver Driver;
+        public ChromeDriver Driver { get; private set; }
         protected readonly WebDriverWait _wait;
         protected readonly Actions _actions;
 

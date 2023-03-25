@@ -26,15 +26,16 @@ namespace TestTube
         WordpressLoginPage _wordpressLoginPage;
         PantsHolidaysPage _pantsHolidaysPage;
         FileUploaderPage _fileUploaderPage;
-        AntsPantsCafePage _antsPantsCafe;
+        RedAntsPantsPage _redAntsPantsCafe;
         Actions _actions;
-        
+
 
         public PantsTests(ITestOutputHelper testOutputHelper)
         {
             this.testOutputHelper = testOutputHelper;
 
             Actions actions = new Actions(Driver);
+            _actions = actions;
 
             PantsDotOrgPages pantsDotOrg = new PantsDotOrgPages();
             _pantsDotOrg = pantsDotOrg;
@@ -50,6 +51,9 @@ namespace TestTube
 
             FileUploaderPage fileUploaderPage = new FileUploaderPage(Driver);
             _fileUploaderPage = fileUploaderPage;
+
+            RedAntsPantsPage redAntsPantsPage = new RedAntsPantsPage(Driver);
+            _redAntsPantsCafe = redAntsPantsPage;
 
         }
 

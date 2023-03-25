@@ -5,8 +5,8 @@ using OpenQA.Selenium.Support.UI;
 
 namespace TestTube
 {
-	public class TheArtOfPantsPages
-	{
+    public class TheArtOfPantsPages
+    {
         private readonly ChromeDriver Driver;
 
         public TheArtOfPantsPages(ChromeDriver driver)
@@ -25,6 +25,12 @@ namespace TestTube
 
         string shopMorePantsCardsXpath = "//li[@class=\"grid__item\"]";
         internal By ShopMorePantsCards { get => By.XPath(shopMorePantsCardsXpath); }
+
+        string infoTopNavItem = "//details[@id=\"Details-HeaderMenu-4\"]//span[contains(text(), \"Info\")]";
+        internal By InfoTopNavItem { get => By.XPath(infoTopNavItem); }
+
+        string infoOptionsXpath = "//ul[@id=\"HeaderMenu-MenuList-4\"]//li//a";
+        internal By InfoOptions { get => By.XPath(infoOptionsXpath ); }
 
         string addToCartButtonXpath = "//button[@name=\"add\"]";
         internal By AddToCartButton { get => By.XPath(addToCartButtonXpath); }

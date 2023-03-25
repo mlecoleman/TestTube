@@ -244,30 +244,23 @@ namespace TestTube
             }
         }
 
-        //// Test 10
-        //[Fact]
-        //public void Test3()
-        //{
-        //    // Arrange - Navigate to url for pants github
-        //    //Driver.Manage().Window.Maximize();
-        //    Driver.Navigate().GoToUrl(_redAntsPantsCafe.RedAntsPantsUrl);
-        //    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
-        //    //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
+        // Test 10
+        [Fact]
+        public void TestTopNavBarInfoDropdownOptions()
+        {
+            // Arrange - Navigate to url for the art of pants
+            Driver.Navigate().GoToUrl(_artOfPantsPages.TheArtOfPantsGreetingCardsUrl);
+            //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
 
+            // Act - Click on the Info dropdown
+            Driver.FindElement(_artOfPantsPages.InfoTopNavItem).Click();
+            _wait.Until(c => Driver.FindElement(_artOfPantsPages.InfoOptions).Displayed);
+            List<string> infoOptions= new List<string>(Driver.FindElements(_artOfPantsPages.InfoOptions).Select(iw => iw.Text));
 
-        //    // Act - Hover over No Pants Day (May 5th)
-        //    //_actions.MoveToElement(Driver.FindElement(_pantsGithub.May5thSquare)).Perform();
-        //    //_actions.ScrollToElement(Driver.FindElement(_antsPantsCafe.About)).Perform();
-        //    //_actions.MoveToElement(Driver.FindElement(_redAntsPantsCafe.About)).Perform();
-
-        //    // Assert - The contributions tooltip appears for No Pants Day (May 5th)
-        //    using (new AssertionScope())
-        //    {
-        //        Driver.FindElement(_redAntsPantsCafe.ContributionsTooltip).Displayed.Should().BeTrue();
-        //        //Driver.FindElement(_fileUploaderPage.UploadedFilesPanel).Text.Should().Be("Pants.jpg");
-        //        //Driver.FindElement(_fileUploaderPage.FileUploadedHeader).Displayed.Should().BeTrue();
-        //    }
-        //}
+            // Assert - There are only three items
+            Driver.FindElements(_artOfPantsPages.InfoOptions).Should().HaveCount(3);
+            infoOptions.Should().ContainInConsecutiveOrder("Contact", "Shipping Info", "FAQ");
+        }
 
         //// Test 11
         //[Fact]

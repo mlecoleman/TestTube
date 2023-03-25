@@ -220,15 +220,18 @@ namespace TestTube
 
         // Test 8
         [Fact]
-        public void TestNumberOfArtCards()
+        public void TestExpectedNumberOfArtCards()
         {
             // Arrange - Navigate to url for The Art Of Pants
             // Act - View The Art Of Pants Page
             Driver.Navigate().GoToUrl(_artOfPantsPages.TheArtOfPantsUrl);
 
-            // Assert - There should only be nine grid items
-            Driver.FindElements(_artOfPantsPages.ArtCards).Should().HaveCount(9);
-            
+            // Assert - There should only be 9 Featured Pants Art Cards and 6 Shop More Pants Cards
+            using (new AssertionScope())
+            {
+                Driver.FindElements(_artOfPantsPages.FeaturedPantsArtCards).Should().HaveCount(9);
+                Driver.FindElements(_artOfPantsPages.ShopMorePantsCards).Should().HaveCount(6);
+            }
         }
 
         //// Test 9

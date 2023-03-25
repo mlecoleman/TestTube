@@ -196,56 +196,223 @@ namespace TestTube
             }
         }
 
-        // Test 5
+        // Test 7
         // Meets Requirement:
         // A hover-over or tooltip
         [Fact]
-        public void Test()
+        public void TestAnthillHoverOverDropdownMenu()
         {
-            // Arrange - Navigate to url for pants github
-            //Driver.Manage().Window.Maximize();
-            Driver.Navigate().GoToUrl(_antsPantsCafe.AntsPantsCafeUrl);
+            // Arrange - Navigate to url for Red Ants Pants
+            Driver.Navigate().GoToUrl(_redAntsPantsCafe.RedAntsPantsUrl);
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
-            wait.Until(c => Driver.FindElement(_antsPantsCafe.About).Displayed);
 
-
-            // Act - Hover over No Pants Day (May 5th)
-            //_actions.MoveToElement(Driver.FindElement(_pantsGithub.May5thSquare)).Perform();
-            //_actions.ScrollToElement(Driver.FindElement(_antsPantsCafe.About)).Perform();
-            _actions.MoveToElement(Driver.FindElement(_antsPantsCafe.About)).Perform();
+            // Act - Hover over ANTHILL item in nav bar
+            _actions.MoveToElement(Driver.FindElement(_redAntsPantsCafe.AnthillNavItem)).Perform();
+            wait.Until(c => Driver.FindElement(_redAntsPantsCafe.PantsPicsMenuItem).Displayed);
 
             // Assert - The contributions tooltip appears for No Pants Day (May 5th)
-            using (new AssertionScope())
-            {
-                Driver.FindElement(_antsPantsCafe.ContributionsTooltip).Displayed.Should().BeTrue();
-                //Driver.FindElement(_fileUploaderPage.UploadedFilesPanel).Text.Should().Be("Pants.jpg");
-                //Driver.FindElement(_fileUploaderPage.FileUploadedHeader).Displayed.Should().BeTrue();
-            }
+            Driver.FindElement(_redAntsPantsCafe.PantsPicsMenuItem).Displayed.Should().BeTrue();
         }
+
+        //// Test 8
+        //[Fact]
+        //public void Test1()
+        //{
+        //    // Arrange - Navigate to url for pants github
+        //    //Driver.Manage().Window.Maximize();
+        //    Driver.Navigate().GoToUrl(_redAntsPantsCafe.RedAntsPantsUrl);
+        //    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+        //    //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
+
+
+        //    // Act - Hover over No Pants Day (May 5th)
+        //    //_actions.MoveToElement(Driver.FindElement(_pantsGithub.May5thSquare)).Perform();
+        //    //_actions.ScrollToElement(Driver.FindElement(_antsPantsCafe.About)).Perform();
+        //    //_actions.MoveToElement(Driver.FindElement(_redAntsPantsCafe.About)).Perform();
+
+        //    // Assert - The contributions tooltip appears for No Pants Day (May 5th)
+        //    using (new AssertionScope())
+        //    {
+        //        Driver.FindElement(_redAntsPantsCafe.ContributionsTooltip).Displayed.Should().BeTrue();
+        //        //Driver.FindElement(_fileUploaderPage.UploadedFilesPanel).Text.Should().Be("Pants.jpg");
+        //        //Driver.FindElement(_fileUploaderPage.FileUploadedHeader).Displayed.Should().BeTrue();
+        //    }
+        //}
+
+        //// Test 9
+        //[Fact]
+        //public void Test2()
+        //{
+        //    // Arrange - Navigate to url for pants github
+        //    //Driver.Manage().Window.Maximize();
+        //    Driver.Navigate().GoToUrl(_redAntsPantsCafe.RedAntsPantsUrl);
+        //    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+        //    //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
+
+
+        //    // Act - Hover over No Pants Day (May 5th)
+        //    //_actions.MoveToElement(Driver.FindElement(_pantsGithub.May5thSquare)).Perform();
+        //    //_actions.ScrollToElement(Driver.FindElement(_antsPantsCafe.About)).Perform();
+        //    //_actions.MoveToElement(Driver.FindElement(_redAntsPantsCafe.About)).Perform();
+
+        //    // Assert - The contributions tooltip appears for No Pants Day (May 5th)
+        //    using (new AssertionScope())
+        //    {
+        //        Driver.FindElement(_redAntsPantsCafe.ContributionsTooltip).Displayed.Should().BeTrue();
+        //        //Driver.FindElement(_fileUploaderPage.UploadedFilesPanel).Text.Should().Be("Pants.jpg");
+        //        //Driver.FindElement(_fileUploaderPage.FileUploadedHeader).Displayed.Should().BeTrue();
+        //    }
+        //}
+
+        //// Test 10
+        //[Fact]
+        //public void Test3()
+        //{
+        //    // Arrange - Navigate to url for pants github
+        //    //Driver.Manage().Window.Maximize();
+        //    Driver.Navigate().GoToUrl(_redAntsPantsCafe.RedAntsPantsUrl);
+        //    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+        //    //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
+
+
+        //    // Act - Hover over No Pants Day (May 5th)
+        //    //_actions.MoveToElement(Driver.FindElement(_pantsGithub.May5thSquare)).Perform();
+        //    //_actions.ScrollToElement(Driver.FindElement(_antsPantsCafe.About)).Perform();
+        //    //_actions.MoveToElement(Driver.FindElement(_redAntsPantsCafe.About)).Perform();
+
+        //    // Assert - The contributions tooltip appears for No Pants Day (May 5th)
+        //    using (new AssertionScope())
+        //    {
+        //        Driver.FindElement(_redAntsPantsCafe.ContributionsTooltip).Displayed.Should().BeTrue();
+        //        //Driver.FindElement(_fileUploaderPage.UploadedFilesPanel).Text.Should().Be("Pants.jpg");
+        //        //Driver.FindElement(_fileUploaderPage.FileUploadedHeader).Displayed.Should().BeTrue();
+        //    }
+        //}
+
+        //// Test 11
+        //[Fact]
+        //public void Test4()
+        //{
+        //    // Arrange - Navigate to url for pants github
+        //    //Driver.Manage().Window.Maximize();
+        //    Driver.Navigate().GoToUrl(_redAntsPantsCafe.RedAntsPantsUrl);
+        //    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+        //    //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
+
+
+        //    // Act - Hover over No Pants Day (May 5th)
+        //    //_actions.MoveToElement(Driver.FindElement(_pantsGithub.May5thSquare)).Perform();
+        //    //_actions.ScrollToElement(Driver.FindElement(_antsPantsCafe.About)).Perform();
+        //    //_actions.MoveToElement(Driver.FindElement(_redAntsPantsCafe.About)).Perform();
+
+        //    // Assert - The contributions tooltip appears for No Pants Day (May 5th)
+        //    using (new AssertionScope())
+        //    {
+        //        Driver.FindElement(_redAntsPantsCafe.ContributionsTooltip).Displayed.Should().BeTrue();
+        //        //Driver.FindElement(_fileUploaderPage.UploadedFilesPanel).Text.Should().Be("Pants.jpg");
+        //        //Driver.FindElement(_fileUploaderPage.FileUploadedHeader).Displayed.Should().BeTrue();
+        //    }
+        //}
+
+        //// Test 12
+        //[Fact]
+        //public void Test5()
+        //{
+        //    // Arrange - Navigate to url for pants github
+        //    //Driver.Manage().Window.Maximize();
+        //    Driver.Navigate().GoToUrl(_redAntsPantsCafe.RedAntsPantsUrl);
+        //    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+        //    //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
+
+
+        //    // Act - Hover over No Pants Day (May 5th)
+        //    //_actions.MoveToElement(Driver.FindElement(_pantsGithub.May5thSquare)).Perform();
+        //    //_actions.ScrollToElement(Driver.FindElement(_antsPantsCafe.About)).Perform();
+        //    //_actions.MoveToElement(Driver.FindElement(_redAntsPantsCafe.About)).Perform();
+
+        //    // Assert - The contributions tooltip appears for No Pants Day (May 5th)
+        //    using (new AssertionScope())
+        //    {
+        //        Driver.FindElement(_redAntsPantsCafe.ContributionsTooltip).Displayed.Should().BeTrue();
+        //        //Driver.FindElement(_fileUploaderPage.UploadedFilesPanel).Text.Should().Be("Pants.jpg");
+        //        //Driver.FindElement(_fileUploaderPage.FileUploadedHeader).Displayed.Should().BeTrue();
+        //    }
+        //}
+
+        //// Test 13
+        //[Fact]
+        //public void Test6()
+        //{
+        //    // Arrange - Navigate to url for pants github
+        //    //Driver.Manage().Window.Maximize();
+        //    Driver.Navigate().GoToUrl(_redAntsPantsCafe.RedAntsPantsUrl);
+        //    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+        //    //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
+
+
+        //    // Act - Hover over No Pants Day (May 5th)
+        //    //_actions.MoveToElement(Driver.FindElement(_pantsGithub.May5thSquare)).Perform();
+        //    //_actions.ScrollToElement(Driver.FindElement(_antsPantsCafe.About)).Perform();
+        //    //_actions.MoveToElement(Driver.FindElement(_redAntsPantsCafe.About)).Perform();
+
+        //    // Assert - The contributions tooltip appears for No Pants Day (May 5th)
+        //    using (new AssertionScope())
+        //    {
+        //        Driver.FindElement(_redAntsPantsCafe.ContributionsTooltip).Displayed.Should().BeTrue();
+        //        //Driver.FindElement(_fileUploaderPage.UploadedFilesPanel).Text.Should().Be("Pants.jpg");
+        //        //Driver.FindElement(_fileUploaderPage.FileUploadedHeader).Displayed.Should().BeTrue();
+        //    }
+        //}
+
+        //// Test 14
+        //[Fact]
+        //public void Test7()
+        //{
+        //    // Arrange - Navigate to url for pants github
+        //    //Driver.Manage().Window.Maximize();
+        //    Driver.Navigate().GoToUrl(_redAntsPantsCafe.RedAntsPantsUrl);
+        //    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+        //    //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
+
+
+        //    // Act - Hover over No Pants Day (May 5th)
+        //    //_actions.MoveToElement(Driver.FindElement(_pantsGithub.May5thSquare)).Perform();
+        //    //_actions.ScrollToElement(Driver.FindElement(_antsPantsCafe.About)).Perform();
+        //    //_actions.MoveToElement(Driver.FindElement(_redAntsPantsCafe.About)).Perform();
+
+        //    // Assert - The contributions tooltip appears for No Pants Day (May 5th)
+        //    using (new AssertionScope())
+        //    {
+        //        Driver.FindElement(_redAntsPantsCafe.ContributionsTooltip).Displayed.Should().BeTrue();
+        //        //Driver.FindElement(_fileUploaderPage.UploadedFilesPanel).Text.Should().Be("Pants.jpg");
+        //        //Driver.FindElement(_fileUploaderPage.FileUploadedHeader).Displayed.Should().BeTrue();
+        //    }
+        //}
+
+        //// Test 15
+        //[Fact]
+        //public void Test8()
+        //{
+        //    // Arrange - Navigate to url for pants github
+        //    //Driver.Manage().Window.Maximize();
+        //    Driver.Navigate().GoToUrl(_redAntsPantsCafe.RedAntsPantsUrl);
+        //    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+        //    //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
+
+
+        //    // Act - Hover over No Pants Day (May 5th)
+        //    //_actions.MoveToElement(Driver.FindElement(_pantsGithub.May5thSquare)).Perform();
+        //    //_actions.ScrollToElement(Driver.FindElement(_antsPantsCafe.About)).Perform();
+        //    //_actions.MoveToElement(Driver.FindElement(_redAntsPantsCafe.About)).Perform();
+
+        //    // Assert - The contributions tooltip appears for No Pants Day (May 5th)
+        //    using (new AssertionScope())
+        //    {
+        //        Driver.FindElement(_redAntsPantsCafe.ContributionsTooltip).Displayed.Should().BeTrue();
+        //        //Driver.FindElement(_fileUploaderPage.UploadedFilesPanel).Text.Should().Be("Pants.jpg");
+        //        //Driver.FindElement(_fileUploaderPage.FileUploadedHeader).Displayed.Should().BeTrue();
+        //    }
+        //}
     }
 }
-
-
-//Create a suite of automated UI tests for publicly accessible web applications. You may use any
-//online web application you choose, and you are not required to write all of your tests against the
-//same application. You may write your tests in the same project as your API tests from the
-//midterm, or you may create a new one.You may use any Nuget packages, test frameworks, or
-//assertion libraries you choose, but your solution must be in C#. Create at least 15 automated UI
-//tests. Your tests should each be unique and test a different use case of the web application.
-//Your tests should also cover all of the following criteria:
-//1.Each test must contain an assertion.
-//2. 
-//3. Include at least one test for each of the following complex page controls:
-//a.A file upload
-//b. 
-//c. A hover-over or tooltip
-//4. 
-//5.Utilize a Page Object Model. Create at least 3 Page Object Model classes that represent
-//web pages under test.
-//Ensure that at the end of your tests, any and all open browser windows or sessions are closed
-//and disposed of properly.
-//Build your code and run your tests. All tests should run and all assertions should pass in order
-//to receive credit. If your code requires any setup in order to build or run your tests, include a
-//readme file with instructions to build and run your code. Check your completed tests into a
-//GitHub repository, and submit that link as your turn-in.
 

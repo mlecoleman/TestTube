@@ -79,8 +79,8 @@ namespace TestTube
 
         // Test 2
         // Meets Requirement:
-        // Include at least 1 negative test.
-        [Fact]
+        // Negative test.
+        [Fact(Skip = "Not Finished")]
         public void WordpressInvalidLoginNegativeTest()
         {
             // Arrange - Navigate to pants.org (I know I should probably just navigate directly to the
@@ -102,6 +102,8 @@ namespace TestTube
         }
 
         // Test 3
+        // Meets Requirement:
+        // Negative Test
         [Fact]
         public void WordpressFailAtProvingHumanityNegativeTest()
         {

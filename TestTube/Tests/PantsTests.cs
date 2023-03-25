@@ -21,18 +21,22 @@ namespace TestTube
     public sealed class PantsTests : BaseTest
     {
         private readonly ITestOutputHelper testOutputHelper;
-        PantsDotOrg _pantsDotOrg;
+        PantsDotOrgPages _pantsDotOrg;
         TwitterPage _twitterPage;
         WordpressLoginPage _wordpressLoginPage;
         PantsHolidaysPage _pantsHolidaysPage;
         FileUploaderPage _fileUploaderPage;
+        AntsPantsCafePage _antsPantsCafe;
+        Actions _actions;
         
 
         public PantsTests(ITestOutputHelper testOutputHelper)
         {
             this.testOutputHelper = testOutputHelper;
 
-            PantsDotOrg pantsDotOrg = new PantsDotOrg();
+            Actions actions = new Actions(Driver);
+
+            PantsDotOrgPages pantsDotOrg = new PantsDotOrgPages();
             _pantsDotOrg = pantsDotOrg;
 
             TwitterPage twitterPage = new TwitterPage();
@@ -63,7 +67,7 @@ namespace TestTube
                 .GoToUrl(_pantsDotOrg.pantsDotOrgUrl);
 
             // Act - Click on the Twitter Button/Link and wait for the new tab to be fully loaded
-            Driver.FindElement(_pantsDotOrg.gitTwitterButton).Click();
+            Driver.FindElement(_pantsDotOrg.TwitterButton).Click();
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
             Driver.SwitchTo().Window(Driver.WindowHandles.Last());
             wait.Until(c => Driver.FindElement(_twitterPage.gitTwitterUserUrlLink).Displayed);
@@ -78,26 +82,20 @@ namespace TestTube
         }
 
         // Test 2
-        // Meets Requirement:
-        // Negative test.
-        [Fact(Skip = "Not Finished")]
-        public void WordpressInvalidLoginNegativeTest()
+        [Fact]
+        public void NavigateToAboutMeTest()
         {
-            // Arrange - Navigate to pants.org (I know I should probably just navigate directly to the
-            // Wordpress login page, but pants.org is funnier)
+            // Arrange - Navigate to pants.org 
             Driver.Navigate().GoToUrl(_pantsDotOrg.pantsDotOrgUrl);
 
-            // Act - Click on Wordpress Login link and attempt to login with invalid credentials 
-            Driver.FindElement(_pantsDotOrg.wordpressLoginLink).Click();
-            Driver.FindElement(_wordpressLoginPage.emailAddressInput).SendKeys("pants@example.com");
-            Driver.FindElement(_wordpressLoginPage.emailAddressInput).SendKeys("pantsdotorgpassword");
-            Driver.FindElement(_wordpressLoginPage.proveHumanityInput).SendKeys("");
-            Driver.FindElement(_wordpressLoginPage.loginButton).Click();
+            // Act - Click on About Me in the nav abr
+            Driver.FindElement(_pantsDotOrg.NavBarAboutMe).Click();
 
-            // Assert - Logging in with invalid credentials triggers login error message
+            // Assert - The web address is correct and the About Me header is present
             using (new AssertionScope())
             {
-                Driver.FindElement(_wordpressLoginPage.invalidLoginCredentialsError).Displayed.Should().BeTrue();
+                Driver.Url.Should().Be(_pantsDotOrg.pantsAboutMeUrl);
+                Driver.FindElement(_pantsDotOrg.AboutMeHeader).Displayed.Should().BeTrue();
             }
         }
 
@@ -127,6 +125,78 @@ namespace TestTube
                 Driver.Title.Should().Be(_wordpressLoginPage.wordpressErrorPageTitle);
             }
         }
+
+        // Test 4
+        // Meets Requirement:
+        // A date picker
+        [Fact]
+        public void PantsHolidaysCalendarPicker()
+        {
+            // Arrange - Navigate to url for May 5th 2023 - No Pants Day
+            Driver.Navigate().GoToUrl(_pantsHolidaysPage.noPantsDayUrl);
+
+            // Act - Select Date July 27th - Take your Pants for a Walk Day
+            _pantsHolidaysPage.chooseJuly2023();
+            Driver.FindElement(_pantsHolidaysPage.july27th).Click();
+            Driver.SwitchTo().Window(Driver.WindowHandles.Last());
+
+
+            // Assert - Take your Pants for a Walk Day Url and Page elements are displayed
+            using (new AssertionScope())
+            {
+                Driver.FindElement(_pantsHolidaysPage.walkYourPantsHolidayHeader).Displayed.Should().BeTrue();
+                Driver.Url.Should().Be(_pantsHolidaysPage.takeYourPantsForAWalkDayUrl);
+            }
+        }
+
+        // Test 5
+        // Meets Requirement:
+        // A file upload
+        [Fact]
+        public void UploadImageOfPantsTest()
+        {
+            // Arrange - Navigate to url for file uploader
+            Driver.Navigate().GoToUrl(_fileUploaderPage.FileUploaderUrl);
+
+            // Act - Choose ann image and upload it 
+            Driver.FindElement(_fileUploaderPage.ChooseFileButton).SendKeys(@"/Users/ecoleman/Desktop/coding/cl/qa-course-2-jan-2023/TestTube/TestTube/Upload/Pants.jpg");
+            Driver.FindElement(_fileUploaderPage.UploadButton).Click();
+
+            // Assert - Image uploaded panel is present with file text & File Uploaded! header is displayed
+            using (new AssertionScope())
+            {
+                Driver.FindElement(_fileUploaderPage.UploadedFilesPanel).Displayed.Should().BeTrue();
+                Driver.FindElement(_fileUploaderPage.UploadedFilesPanel).Text.Should().Be("Pants.jpg");
+                Driver.FindElement(_fileUploaderPage.FileUploadedHeader).Displayed.Should().BeTrue();
+            }
+        }
+
+        // Test 5
+        // Meets Requirement:
+        // A hover-over or tooltip
+        [Fact]
+        public void Test()
+        {
+            // Arrange - Navigate to url for pants github
+            //Driver.Manage().Window.Maximize();
+            Driver.Navigate().GoToUrl(_antsPantsCafe.AntsPantsCafeUrl);
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+            wait.Until(c => Driver.FindElement(_antsPantsCafe.About).Displayed);
+
+
+            // Act - Hover over No Pants Day (May 5th)
+            //_actions.MoveToElement(Driver.FindElement(_pantsGithub.May5thSquare)).Perform();
+            //_actions.ScrollToElement(Driver.FindElement(_antsPantsCafe.About)).Perform();
+            _actions.MoveToElement(Driver.FindElement(_antsPantsCafe.About)).Perform();
+
+            // Assert - The contributions tooltip appears for No Pants Day (May 5th)
+            using (new AssertionScope())
+            {
+                Driver.FindElement(_antsPantsCafe.ContributionsTooltip).Displayed.Should().BeTrue();
+                //Driver.FindElement(_fileUploaderPage.UploadedFilesPanel).Text.Should().Be("Pants.jpg");
+                //Driver.FindElement(_fileUploaderPage.FileUploadedHeader).Displayed.Should().BeTrue();
+            }
+        }
     }
 }
 
@@ -142,7 +212,7 @@ namespace TestTube
 //2. 
 //3. Include at least one test for each of the following complex page controls:
 //a.A file upload
-//b. A date picker
+//b. 
 //c. A hover-over or tooltip
 //4. 
 //5.Utilize a Page Object Model. Create at least 3 Page Object Model classes that represent

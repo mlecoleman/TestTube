@@ -92,7 +92,7 @@ namespace TestTube
             // Arrange - Navigate to pants.org 
             Driver.Navigate().GoToUrl(_pantsDotOrg.pantsDotOrgUrl);
 
-            // Act - Click on About Me in the nav abr
+            // Act - Click on About Me in the nav bar
             Driver.FindElement(_pantsDotOrg.NavBarAboutMe).Click();
 
             // Assert - The web address is correct and the About Me header is present
@@ -104,6 +104,26 @@ namespace TestTube
         }
 
         // Test 3
+        [Fact]
+        public void PantsSearchBarTest()
+        {
+            // Arrange - Navigate to pants.org 
+            Driver.Navigate().GoToUrl(_pantsDotOrg.pantsDotOrgUrl);
+
+            // Act - Use the page search bar to search for Pants
+            Driver.FindElement(_pantsDotOrg.SearchBar).SendKeys("Pants");
+            Driver.FindElement(_pantsDotOrg.SearchBar).SendKeys(Keys.Return);
+
+
+            // Assert - The header and url contain the search query (Pants)
+            using (new AssertionScope())
+            {
+                Driver.Url.Should().Contain("Pants");
+                Driver.FindElement(_pantsDotOrg.SearchResultsHeader).Displayed.Should().BeTrue();
+            }
+        }
+
+        // Test 4
         // Meets Requirement:
         // Negative Test
         [Fact]

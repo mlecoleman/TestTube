@@ -14,6 +14,7 @@ using AngleSharp.Dom;
 using System.Runtime.Intrinsics.X86;
 using System.Diagnostics.Metrics;
 using OpenQA.Selenium.Interactions;
+using System.Linq;
 
 namespace TestTube
 
@@ -21,7 +22,6 @@ namespace TestTube
     public sealed class PantsTests : BaseTest
     {
         private readonly ITestOutputHelper testOutputHelper;
-        Actions _actions;
         PantsDotOrgPages _pantsDotOrg;
         TwitterPage _twitterPage;
         WordpressLoginPage _wordpressLoginPage;
@@ -30,13 +30,9 @@ namespace TestTube
         RedAntsPantsPage _redAntsPantsCafe;
         TheArtOfPantsPages _artOfPantsPages;
 
-
         public PantsTests(ITestOutputHelper testOutputHelper)
         {
             this.testOutputHelper = testOutputHelper;
-
-            Actions actions = new Actions(Driver);
-            _actions = actions;
 
             PantsDotOrgPages pantsDotOrg = new PantsDotOrgPages();
             _pantsDotOrg = pantsDotOrg;
@@ -58,7 +54,6 @@ namespace TestTube
 
             TheArtOfPantsPages theArtOfPantsPages = new TheArtOfPantsPages(Driver);
             _artOfPantsPages = theArtOfPantsPages;
-
         }
 
         // Test 1
@@ -70,15 +65,12 @@ namespace TestTube
         {
             //testOutputHelper.WriteLine("example");
             // Arrange - Navigate to wordpress site pants.org
-            Driver
-                .Navigate()
-                .GoToUrl(_pantsDotOrg.pantsDotOrgUrl);
+            Driver.Navigate().GoToUrl(_pantsDotOrg.pantsDotOrgUrl);
 
             // Act - Click on the Twitter Button/Link and wait for the new tab to be fully loaded
             Driver.FindElement(_pantsDotOrg.TwitterButton).Click();
-            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
             Driver.SwitchTo().Window(Driver.WindowHandles.Last());
-            wait.Until(c => Driver.FindElement(_twitterPage.gitTwitterUserUrlLink).Displayed);
+            _wait.Until(c => Driver.FindElement(_twitterPage.gitTwitterUserUrlLink).Displayed);
 
             // Assert - 2 Windows are open and the new window has the expected Twitter title & URL
             using (new AssertionScope())
@@ -143,8 +135,7 @@ namespace TestTube
             Driver.FindElement(_wordpressLoginPage.passwordInput).SendKeys("pantsdotorgpassword");
             Driver.FindElement(_wordpressLoginPage.proveHumanityInput).SendKeys("");
             Driver.FindElement(_wordpressLoginPage.loginButton).Click();
-            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
-            wait.Until(c => Driver.FindElement(_wordpressLoginPage.notHumanErrorPage).Displayed);
+            _wait.Until(c => Driver.FindElement(_wordpressLoginPage.notHumanErrorPage).Displayed);
 
             // Assert - Logging in without proving Humanity loads error page with expected error message
             using (new AssertionScope())
@@ -208,11 +199,10 @@ namespace TestTube
         {
             // Arrange - Navigate to url for Red Ants Pants
             Driver.Navigate().GoToUrl(_redAntsPantsCafe.RedAntsPantsUrl);
-            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
 
             // Act - Hover over ANTHILL item in nav bar
             _actions.MoveToElement(Driver.FindElement(_redAntsPantsCafe.AnthillNavItem)).Perform();
-            wait.Until(c => Driver.FindElement(_redAntsPantsCafe.PantsPicsMenuItem).Displayed);
+            _wait.Until(c => Driver.FindElement(_redAntsPantsCafe.PantsPicsMenuItem).Displayed);
 
             // Assert - The contributions tooltip appears for No Pants Day (May 5th)
             Driver.FindElement(_redAntsPantsCafe.PantsPicsMenuItem).Displayed.Should().BeTrue();
@@ -240,13 +230,11 @@ namespace TestTube
         {
             // Arrange - Navigate to url for The Art Of Pants Greeting Cards page
             Driver.Navigate().GoToUrl(_artOfPantsPages.TheArtOfPantsGreetingCardsUrl);
-            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
-            //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed)
 
             // Act - Click on first greeting card on greeting cards page
             _artOfPantsPages.ChooseFirstGreetingCard();
             Driver.FindElement(_artOfPantsPages.AddToCartButton).Click();
-            wait.Until(c => Driver.FindElement(_artOfPantsPages.CartNotification).Displayed);
+            _wait.Until(c => Driver.FindElement(_artOfPantsPages.CartNotification).Displayed);
 
             // Assert - Item added to cart notification appears and shows confirmation header
             using (new AssertionScope())

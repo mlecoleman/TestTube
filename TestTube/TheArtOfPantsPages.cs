@@ -29,6 +29,9 @@ namespace TestTube
         string shopMorePantsCardsXpath = "//li[@class=\"grid__item\"]";
         internal By ShopMorePantsCards { get => By.XPath(shopMorePantsCardsXpath); }
 
+        string topNavBarItemsXpath = "//nav[@class=\"header__inline-menu\"]//child::span";
+        internal By TopNavBarItems { get => By.XPath(topNavBarItemsXpath); }
+
         string infoTopNavItem = "//details[@id=\"Details-HeaderMenu-4\"]//span[contains(text(), \"Info\")]";
         internal By InfoTopNavItem { get => By.XPath(infoTopNavItem); }
 

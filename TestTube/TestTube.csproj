@@ -29,10 +29,14 @@
     <None Remove="PageObjectModels\" />
     <None Remove="Tests\" />
     <None Remove="Upload\" />
+    <None Remove="Upload\readme.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="PageObjectModels\" />
     <Folder Include="Tests\" />
     <Folder Include="Upload\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Upload\readme.md" />
   </ItemGroup>
 </Project>

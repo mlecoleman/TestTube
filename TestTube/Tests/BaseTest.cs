@@ -1,14 +1,7 @@
 ﻿using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium;
-using System;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
-using Xunit;
-using Xunit.Abstractions;
-using FluentAssertions;
 using OpenQA.Selenium.Support.UI;
-using FluentAssertions.Execution;
-using TestTube.PageObjectModels;
 using OpenQA.Selenium.Interactions;
  
 namespace TestTube.Tests

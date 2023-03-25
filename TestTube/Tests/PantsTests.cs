@@ -1,20 +1,10 @@
-﻿using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium;
-using System;
-using WebDriverManager;
-using WebDriverManager.DriverConfigs.Impl;
-using Xunit;
+﻿using OpenQA.Selenium;
 using Xunit.Abstractions;
 using FluentAssertions;
 using OpenQA.Selenium.Support.UI;
 using FluentAssertions.Execution;
 using TestTube.PageObjectModels;
 using TestTube.Tests;
-using AngleSharp.Dom;
-using System.Runtime.Intrinsics.X86;
-using System.Diagnostics.Metrics;
-using OpenQA.Selenium.Interactions;
-using System.Linq;
 
 namespace TestTube
 

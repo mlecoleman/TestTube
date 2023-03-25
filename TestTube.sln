@@ -5,6 +5,8 @@ VisualStudioVersion = 25.0.1705.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTube", "TestTube\TestTube.csproj", "{FE3B3574-95AE-4ECD-A11F-1D3AA7E65B82}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B2240F40-3509-48CF-B1B1-3EB1979A8636}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

@@ -322,30 +322,25 @@ namespace TestTube
             }
         }
 
-        //// Test 14
-        //[Fact]
-        //public void Test7()
-        //{
-        //    // Arrange - Navigate to url for pants github
-        //    //Driver.Manage().Window.Maximize();
-        //    Driver.Navigate().GoToUrl(_redAntsPantsCafe.RedAntsPantsUrl);
-        //    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
-        //    //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
+        // Test 14
+        [Fact]
+        public void TestPagination()
+        {
+            // Arrange - Navigate to wordpress site pants.org
+            Driver.Navigate().GoToUrl(_pantsDotOrg.pantsDotOrgUrl);
+            //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
 
 
-        //    // Act - Hover over No Pants Day (May 5th)
-        //    //_actions.MoveToElement(Driver.FindElement(_pantsGithub.May5thSquare)).Perform();
-        //    //_actions.ScrollToElement(Driver.FindElement(_antsPantsCafe.About)).Perform();
-        //    //_actions.MoveToElement(Driver.FindElement(_redAntsPantsCafe.About)).Perform();
+            // Act - Click "3" in pagination
+            Driver.FindElements(_pantsDotOrg.paginationNumbers)[1].Click();
 
-        //    // Assert - The contributions tooltip appears for No Pants Day (May 5th)
-        //    using (new AssertionScope())
-        //    {
-        //        Driver.FindElement(_redAntsPantsCafe.ContributionsTooltip).Displayed.Should().BeTrue();
-        //        //Driver.FindElement(_fileUploaderPage.UploadedFilesPanel).Text.Should().Be("Pants.jpg");
-        //        //Driver.FindElement(_fileUploaderPage.FileUploadedHeader).Displayed.Should().BeTrue();
-        //    }
-        //}
+            // Assert - The contributions tooltip appears for No Pants Day (May 5th)
+            using (new AssertionScope())
+            {
+                Driver.Url.Should().Contain("page/3");
+                Driver.FindElement(_pantsDotOrg.PaginationCurrentPage).Text.Should().Be("3");
+            }
+        }
 
         //// Test 15
         //[Fact]

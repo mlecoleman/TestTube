@@ -26,6 +26,12 @@ namespace TestTube.PageObjectModels
         string searchResultsHeaderXpath = "//form[@id=\"searchform\"]//input";
         internal By SearchResultsHeader { get => By.XPath(searchResultsHeaderXpath); }
 
+        string paginationNumbersXpath = "//a[@class=\"page-numbers\"]";
+        internal By paginationNumbers { get => By.XPath(paginationNumbersXpath); }
+
+        string paginationCurrentPageClass = "active";
+        internal By PaginationCurrentPage { get => By.ClassName(paginationCurrentPageClass); }
+
 
     }
 }

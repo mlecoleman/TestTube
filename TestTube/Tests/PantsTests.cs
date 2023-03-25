@@ -21,13 +21,14 @@ namespace TestTube
     public sealed class PantsTests : BaseTest
     {
         private readonly ITestOutputHelper testOutputHelper;
+        Actions _actions;
         PantsDotOrgPages _pantsDotOrg;
         TwitterPage _twitterPage;
         WordpressLoginPage _wordpressLoginPage;
         PantsHolidaysPage _pantsHolidaysPage;
         FileUploaderPage _fileUploaderPage;
         RedAntsPantsPage _redAntsPantsCafe;
-        Actions _actions;
+        TheArtOfPantsPages _artOfPantsPages;
 
 
         public PantsTests(ITestOutputHelper testOutputHelper)
@@ -54,6 +55,9 @@ namespace TestTube
 
             RedAntsPantsPage redAntsPantsPage = new RedAntsPantsPage(Driver);
             _redAntsPantsCafe = redAntsPantsPage;
+
+            TheArtOfPantsPages theArtOfPantsPages = new TheArtOfPantsPages(Driver);
+            _artOfPantsPages = theArtOfPantsPages;
 
         }
 
@@ -184,14 +188,14 @@ namespace TestTube
 
             // Act - Choose ann image and upload it
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-            Driver.FindElement(_fileUploaderPage.ChooseFileButton).SendKeys(path + "/Upload/Pants.jpg");
+            Driver.FindElement(_fileUploaderPage.ChooseFileButton).SendKeys(path + "/Upload/PantsJacket.jpg");
             Driver.FindElement(_fileUploaderPage.UploadButton).Click();
 
             // Assert - Image uploaded panel is present with file text & File Uploaded! header is displayed
             using (new AssertionScope())
             {
                 Driver.FindElement(_fileUploaderPage.UploadedFilesPanel).Displayed.Should().BeTrue();
-                Driver.FindElement(_fileUploaderPage.UploadedFilesPanel).Text.Should().Be("Pants.jpg");
+                Driver.FindElement(_fileUploaderPage.UploadedFilesPanel).Text.Should().Be("PantsJacket.jpg");
                 Driver.FindElement(_fileUploaderPage.FileUploadedHeader).Displayed.Should().BeTrue();
             }
         }
@@ -214,30 +218,18 @@ namespace TestTube
             Driver.FindElement(_redAntsPantsCafe.PantsPicsMenuItem).Displayed.Should().BeTrue();
         }
 
-        //// Test 8
-        //[Fact]
-        //public void Test1()
-        //{
-        //    // Arrange - Navigate to url for pants github
-        //    //Driver.Manage().Window.Maximize();
-        //    Driver.Navigate().GoToUrl(_redAntsPantsCafe.RedAntsPantsUrl);
-        //    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
-        //    //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
+        // Test 8
+        [Fact]
+        public void TestNumberOfArtCards()
+        {
+            // Arrange - Navigate to url for The Art Of Pants
+            // Act - View The Art Of Pants Page
+            Driver.Navigate().GoToUrl(_artOfPantsPages.TheArtOfPantsUrl);
 
-
-        //    // Act - Hover over No Pants Day (May 5th)
-        //    //_actions.MoveToElement(Driver.FindElement(_pantsGithub.May5thSquare)).Perform();
-        //    //_actions.ScrollToElement(Driver.FindElement(_antsPantsCafe.About)).Perform();
-        //    //_actions.MoveToElement(Driver.FindElement(_redAntsPantsCafe.About)).Perform();
-
-        //    // Assert - The contributions tooltip appears for No Pants Day (May 5th)
-        //    using (new AssertionScope())
-        //    {
-        //        Driver.FindElement(_redAntsPantsCafe.ContributionsTooltip).Displayed.Should().BeTrue();
-        //        //Driver.FindElement(_fileUploaderPage.UploadedFilesPanel).Text.Should().Be("Pants.jpg");
-        //        //Driver.FindElement(_fileUploaderPage.FileUploadedHeader).Displayed.Should().BeTrue();
-        //    }
-        //}
+            // Assert - There should only be nine grid items
+            Driver.FindElements(_artOfPantsPages.ArtCards).Should().HaveCount(9);
+            
+        }
 
         //// Test 9
         //[Fact]

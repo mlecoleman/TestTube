@@ -17,8 +17,11 @@ namespace TestTube
         internal string TheArtOfPantsUrl = "https://theartofpants.com/";
         internal string TheArtOfPantsGreetingCardsUrl = "https://theartofpants.com/collections/greeting-cards";
 
-        string antHillXpath = "//span[contains(text(), \"ANTHILL\")]";
-        internal By AnthillNavItem { get => By.XPath(antHillXpath); }
+        string searchIconXpath = "//summary[@aria-label=\"Pants finder\"]";
+        internal By SearchIcon { get => By.XPath(searchIconXpath); }
+
+        string pantsFinderName = "q";
+        internal By PantsFinder { get => By.Name(pantsFinderName); }
 
         string pantsArtCardsXpath = "//li[@class=\"grid__item\"]";
         internal By PantsArtCards { get => By.XPath(pantsArtCardsXpath); }

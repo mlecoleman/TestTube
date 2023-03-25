@@ -229,7 +229,7 @@ namespace TestTube
         public void TestAddingGreetingCardToShoppingCart()
         {
             // Arrange - Navigate to url for The Art Of Pants Greeting Cards page
-            Driver.Navigate().GoToUrl(_artOfPantsPages.TheArtOfPantsGreetingCardsUrl);
+            Driver.Navigate().GoToUrl(_artOfPantsPages.TheArtOfPantsUrl);
 
             // Act - Click on first greeting card on greeting cards page
             _artOfPantsPages.ChooseFirstGreetingCard();
@@ -249,43 +249,33 @@ namespace TestTube
         public void TestTopNavBarInfoDropdownOptions()
         {
             // Arrange - Navigate to url for the art of pants
-            Driver.Navigate().GoToUrl(_artOfPantsPages.TheArtOfPantsGreetingCardsUrl);
-            //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
+            Driver.Navigate().GoToUrl(_artOfPantsPages.TheArtOfPantsUrl);
 
             // Act - Click on the Info dropdown
             Driver.FindElement(_artOfPantsPages.InfoTopNavItem).Click();
             _wait.Until(c => Driver.FindElement(_artOfPantsPages.InfoOptions).Displayed);
             List<string> infoOptions= new List<string>(Driver.FindElements(_artOfPantsPages.InfoOptions).Select(iw => iw.Text));
 
-            // Assert - There are only three items
+            // Assert - There are only three items that have the expected text and are in the expected order
             Driver.FindElements(_artOfPantsPages.InfoOptions).Should().HaveCount(3);
             infoOptions.Should().ContainInConsecutiveOrder("Contact", "Shipping Info", "FAQ");
         }
 
-        //// Test 11
-        //[Fact]
-        //public void Test4()
-        //{
-        //    // Arrange - Navigate to url for pants github
-        //    //Driver.Manage().Window.Maximize();
-        //    Driver.Navigate().GoToUrl(_redAntsPantsCafe.RedAntsPantsUrl);
-        //    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
-        //    //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
+        // Test 11
+        [Fact]
+        public void TestSearchBarIcon()
+        {
+            // Arrange - Navigate to url for the art of pants
+            Driver.Navigate().GoToUrl(_artOfPantsPages.TheArtOfPantsUrl);
+
+            // Act - Click on search icon
+            Driver.FindElement(_artOfPantsPages.SearchIcon).Click();
+            _wait.Until(c => Driver.FindElement(_artOfPantsPages.PantsFinder).Displayed);
 
 
-        //    // Act - Hover over No Pants Day (May 5th)
-        //    //_actions.MoveToElement(Driver.FindElement(_pantsGithub.May5thSquare)).Perform();
-        //    //_actions.ScrollToElement(Driver.FindElement(_antsPantsCafe.About)).Perform();
-        //    //_actions.MoveToElement(Driver.FindElement(_redAntsPantsCafe.About)).Perform();
-
-        //    // Assert - The contributions tooltip appears for No Pants Day (May 5th)
-        //    using (new AssertionScope())
-        //    {
-        //        Driver.FindElement(_redAntsPantsCafe.ContributionsTooltip).Displayed.Should().BeTrue();
-        //        //Driver.FindElement(_fileUploaderPage.UploadedFilesPanel).Text.Should().Be("Pants.jpg");
-        //        //Driver.FindElement(_fileUploaderPage.FileUploadedHeader).Displayed.Should().BeTrue();
-        //    }
-        //}
+            // Assert - The Pants Finder should be displayed
+            Driver.FindElement(_artOfPantsPages.PantsFinder).Displayed.Should().BeTrue();
+        }
 
         //// Test 12
         //[Fact]

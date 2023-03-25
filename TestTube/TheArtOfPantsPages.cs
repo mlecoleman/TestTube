@@ -44,6 +44,15 @@ namespace TestTube
         string cartNotificationId = "cart-notification";
         internal By CartNotification { get => By.Id(cartNotificationId); }
 
+        string viewMyCartLinkId = "cart-notification-button";
+        internal By ViewMyCartLink { get => By.Id(viewMyCartLinkId); }
+
+        string removeItemIconId = "Remove-1";
+        internal By RemoveItem { get => By.Id(removeItemIconId); }
+
+        string noPantsHeaderClass = "cart__empty-text";
+        internal By NoPantsHeader { get => By.ClassName(noPantsHeaderClass); }
+
         internal void ChooseFirstGreetingCard()
         {
             IWebElement firstGreetingCard = Driver.FindElements(PantsArtCards).First();

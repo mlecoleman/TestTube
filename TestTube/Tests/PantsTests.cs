@@ -229,35 +229,32 @@ namespace TestTube
             // Assert - There should only be 9 Featured Pants Art Cards and 6 Shop More Pants Cards
             using (new AssertionScope())
             {
-                Driver.FindElements(_artOfPantsPages.FeaturedPantsArtCards).Should().HaveCount(9);
+                Driver.FindElements(_artOfPantsPages.PantsArtCards).Should().HaveCount(9);
                 Driver.FindElements(_artOfPantsPages.ShopMorePantsCards).Should().HaveCount(6);
             }
         }
 
-        //// Test 9
-        //[Fact]
-        //public void Test2()
-        //{
-        //    // Arrange - Navigate to url for pants github
-        //    //Driver.Manage().Window.Maximize();
-        //    Driver.Navigate().GoToUrl(_redAntsPantsCafe.RedAntsPantsUrl);
-        //    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
-        //    //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
+        // Test 9
+        [Fact]
+        public void TestAddingGreetingCardToShoppingCart()
+        {
+            // Arrange - Navigate to url for The Art Of Pants Greeting Cards page
+            Driver.Navigate().GoToUrl(_artOfPantsPages.TheArtOfPantsGreetingCardsUrl);
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+            //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed)
 
+            // Act - Click on first greeting card on greeting cards page
+            _artOfPantsPages.ChooseFirstGreetingCard();
+            Driver.FindElement(_artOfPantsPages.AddToCartButton).Click();
+            wait.Until(c => Driver.FindElement(_artOfPantsPages.CartNotification).Displayed);
 
-        //    // Act - Hover over No Pants Day (May 5th)
-        //    //_actions.MoveToElement(Driver.FindElement(_pantsGithub.May5thSquare)).Perform();
-        //    //_actions.ScrollToElement(Driver.FindElement(_antsPantsCafe.About)).Perform();
-        //    //_actions.MoveToElement(Driver.FindElement(_redAntsPantsCafe.About)).Perform();
-
-        //    // Assert - The contributions tooltip appears for No Pants Day (May 5th)
-        //    using (new AssertionScope())
-        //    {
-        //        Driver.FindElement(_redAntsPantsCafe.ContributionsTooltip).Displayed.Should().BeTrue();
-        //        //Driver.FindElement(_fileUploaderPage.UploadedFilesPanel).Text.Should().Be("Pants.jpg");
-        //        //Driver.FindElement(_fileUploaderPage.FileUploadedHeader).Displayed.Should().BeTrue();
-        //    }
-        //}
+            // Assert - Item added to cart notification appears and shows confirmation header
+            using (new AssertionScope())
+            {
+                Driver.FindElement(_artOfPantsPages.CartNotification).Displayed.Should().BeTrue();
+                Driver.FindElement(_artOfPantsPages.ItemAddedToCartHeader).Text.Should().Contain("Item added to your cart");
+            }
+        }
 
         //// Test 10
         //[Fact]

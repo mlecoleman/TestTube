@@ -10,11 +10,6 @@ using OpenQA.Selenium.Support.UI;
 using FluentAssertions.Execution;
 using TestTube.PageObjectModels;
 using TestTube.Tests;
-using AngleSharp.Dom;
-using System.Runtime.Intrinsics.X86;
-using System.Diagnostics.Metrics;
-
-
 namespace TestTube.PageObjectModels
 {
     internal class PantsHolidaysPages

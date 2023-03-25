@@ -19,6 +19,14 @@ namespace TestTube.PageObjectModels
 
         string aboutMeHeaderXpath = "//h1[contains(text(), \"About Me\")]";
         internal By AboutMeHeader { get => By.XPath(aboutMeHeaderXpath); }
+
+        string searchBarXpath = "//form[@id=\"searchform\"]//input";
+        internal By SearchBar { get => By.XPath(searchBarXpath); }
+
+        string searchResultsHeaderXpath = "//form[@id=\"searchform\"]//input";
+        internal By SearchResultsHeader { get => By.XPath(searchResultsHeaderXpath); }
+
+
     }
 }
 

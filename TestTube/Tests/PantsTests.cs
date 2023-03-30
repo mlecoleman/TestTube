@@ -53,7 +53,9 @@ namespace TestTube
         [Fact]
         public void PantsDotOrgTwitterButton()
         {
+            //testOutputHelper.WriteLine("example");
             // Arrange - Navigate to wordpress site pants.org
+            Driver.Manage().Window.Maximize();
             _pantsDotOrg.NavigateToPantsDotOrg();
 
             // Act - Click on the Twitter Button/Link and wait for the new tab to be fully loaded
@@ -75,6 +77,7 @@ namespace TestTube
         public void TestPagination()
         {
             // Arrange - Navigate to wordpress site pants.org
+            Driver.Manage().Window.Maximize();
             _pantsDotOrg.NavigateToPantsDotOrg();
             //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
 
@@ -97,7 +100,7 @@ namespace TestTube
         public void TestSiteTitleRedirectsToHomePage()
         {
             // Arrange - Navigate to url for pants github
-            //Driver.Manage().Window.Maximize();
+            Driver.Manage().Window.Maximize();
             _pantsDotOrg.NavigateToPantsDotOrg();
 
             // Act - Click on site Title
@@ -111,7 +114,8 @@ namespace TestTube
         [Fact]
         public void NavigateToAboutMeTest()
         {
-            // Arrange - Navigate to pants.org 
+            // Arrange - Navigate to pants.org
+            Driver.Manage().Window.Maximize();
             _pantsDotOrg.NavigateToPantsDotOrg();
 
             // Act - Click on About Me in the nav bar
@@ -133,6 +137,7 @@ namespace TestTube
         public void PantsSearchBarTest()
         {
             // Arrange - Navigate to pants.org 
+            Driver.Manage().Window.Maximize();
             _pantsDotOrg.NavigateToPantsDotOrg();
 
             // Act - Use the page search bar to search for Pants
@@ -157,6 +162,7 @@ namespace TestTube
         {
             // Arrange - Navigate to pants.org (I know I should probably just navigate directly to the
             // Wordpress login page, but pants.org is funnier)
+            Driver.Manage().Window.Maximize();
             _pantsDotOrg.NavigateToPantsDotOrg();
 
             // Act - Click on Wordpress Login link and attempt to login without proving Humanity 
@@ -179,6 +185,7 @@ namespace TestTube
         public void PantsHolidaysCalendarPicker()
         {
             // Arrange - Navigate to url for May 5th 2023 - No Pants Day
+            Driver.Manage().Window.Maximize();
             _pantsHolidaysPage.NavigateToNoPantsDayUrl();
 
             // Act - Select Date July 27th - Take your Pants for a Walk Day
@@ -203,6 +210,7 @@ namespace TestTube
         public void UploadImageOfPantsTest()
         {
             // Arrange - Navigate to url for file uploader
+            Driver.Manage().Window.Maximize();
             _fileUploaderPage.NavigateToFileUploaderUrl();
             _wait.Until(c => Driver.FindElement(_fileUploaderPage.ChooseFileButton).Displayed);
 
@@ -227,6 +235,7 @@ namespace TestTube
         public void TestAnthillHoverOverDropdownMenu()
         {
             // Arrange - Navigate to url for Red Ants Pants
+            Driver.Manage().Window.Maximize();
             _redAntsPantsPage.NavigateToRedAntsPantsUrl();
 
             // Act - Hover over ANTHILL item in nav bar
@@ -244,6 +253,7 @@ namespace TestTube
         {
             // Arrange - Navigate to url for The Art Of Pants
             // Act - View The Art Of Pants Page
+            Driver.Manage().Window.Maximize();
             _artOfPantsPages.NavigateToArtOfPantsUrl();
             _wait.Until(c => Driver.FindElement(_artOfPantsPages.PantsArtCards).Displayed);
 
@@ -261,6 +271,7 @@ namespace TestTube
         public void TestAddingGreetingCardToShoppingCart()
         {
             // Arrange - Navigate to url for The Art Of Pants Greeting Cards page
+            Driver.Manage().Window.Maximize();
             _artOfPantsPages.NavigateToArtOfPantsGreetingCardsUrl();
 
             // Act - Click on first greeting card on greeting cards page
@@ -281,6 +292,7 @@ namespace TestTube
         public void TestTopNavBarInfoDropdownOptions()
         {
             // Arrange - Navigate to url for the art of pants
+            Driver.Manage().Window.Maximize();
             _artOfPantsPages.NavigateToArtOfPantsUrl();
 
             // Act - Click on the Info dropdown
@@ -299,6 +311,7 @@ namespace TestTube
         public void TestSearchBarIcon()
         {
             // Arrange - Navigate to url for the art of pants
+            Driver.Manage().Window.Maximize();
             _artOfPantsPages.NavigateToArtOfPantsUrl();
 
             // Act - Click on search icon
@@ -315,6 +328,7 @@ namespace TestTube
         public void TestRemovingItemFromShoppingCart()
         {
             // Arrange - Add an item to the shopping cart and navigate to shopping cart
+            Driver.Manage().Window.Maximize();
             _artOfPantsPages.NavigateToArtOfPantsGreetingCardsUrl();
             _artOfPantsPages.ChooseFirstGreetingCard();
             _artOfPantsPages.ClickAddToCartButton();
@@ -340,6 +354,7 @@ namespace TestTube
         public void TestTopNavBar()
         {
             // Arrange - Navigate to url for pants github
+            Driver.Manage().Window.Maximize();
             _artOfPantsPages.NavigateToArtOfPantsUrl();
             _wait.Until(c => Driver.FindElement(_artOfPantsPages.TopNavBarItems).Displayed);
 

@@ -3,7 +3,7 @@ using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Interactions;
- 
+
 namespace TestTube.Tests
 {
     public class BaseTest : IDisposable
@@ -14,8 +14,11 @@ namespace TestTube.Tests
 
         public BaseTest()
 		{
+            ChromeOptions options = new ChromeOptions();
+            options.AddArguments("start-maximized");
+
             var driver = new DriverManager().SetUpDriver(new ChromeConfig());
-            Driver = new ChromeDriver();
+            Driver = new ChromeDriver(options);
 
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
             _wait = wait;

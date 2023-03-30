@@ -55,7 +55,6 @@ namespace TestTube
         {
             //testOutputHelper.WriteLine("example");
             // Arrange - Navigate to wordpress site pants.org
-            Driver.Manage().Window.Maximize();
             _pantsDotOrg.NavigateToPantsDotOrg();
 
             // Act - Click on the Twitter Button/Link and wait for the new tab to be fully loaded

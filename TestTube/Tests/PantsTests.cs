@@ -53,7 +53,6 @@ namespace TestTube
         [Fact]
         public void PantsDotOrgTwitterButton()
         {
-            //testOutputHelper.WriteLine("example");
             // Arrange - Navigate to wordpress site pants.org
             _pantsDotOrg.NavigateToPantsDotOrg();
 
@@ -116,6 +115,7 @@ namespace TestTube
             _pantsDotOrg.NavigateToPantsDotOrg();
 
             // Act - Click on About Me in the nav bar
+            _wait.Until(c => Driver.FindElement(_pantsDotOrg.NavBarAboutMe).Displayed);
             Driver.FindElement(_pantsDotOrg.NavBarAboutMe).Click();
             _wait.Until(c => Driver.FindElement(_pantsDotOrg.AboutMeHeader).Displayed);
 
@@ -136,6 +136,7 @@ namespace TestTube
             _pantsDotOrg.NavigateToPantsDotOrg();
 
             // Act - Use the page search bar to search for Pants
+            _wait.Until(c => Driver.FindElement(_pantsDotOrg.SearchBar).Displayed);
             _pantsDotOrg.SearchBarSendKeys("Pants" + Keys.Return);
             _wait.Until(c => Driver.FindElement(_pantsDotOrg.SearchResultsHeader).Displayed);
 
@@ -229,6 +230,7 @@ namespace TestTube
             _redAntsPantsPage.NavigateToRedAntsPantsUrl();
 
             // Act - Hover over ANTHILL item in nav bar
+            _wait.Until(c => Driver.FindElement(_redAntsPantsPage.AnthillNavItem).Displayed);
             _actions.MoveToElement(Driver.FindElement(_redAntsPantsPage.AnthillNavItem)).Perform();
             _wait.Until(c => Driver.FindElement(_redAntsPantsPage.PantsPicsMenuItem).Displayed);
 
@@ -282,6 +284,7 @@ namespace TestTube
             _artOfPantsPages.NavigateToArtOfPantsUrl();
 
             // Act - Click on the Info dropdown
+            _wait.Until(c => Driver.FindElement(_artOfPantsPages.InfoTopNavItem).Displayed);
             _artOfPantsPages.ClickInfoNavDropdown();
             _wait.Until(c => Driver.FindElement(_artOfPantsPages.InfoOptions).Displayed);
             List<string> infoOptions= new List<string>(Driver.FindElements(_artOfPantsPages.InfoOptions).Select(iw => iw.Text));
@@ -299,6 +302,7 @@ namespace TestTube
             _artOfPantsPages.NavigateToArtOfPantsUrl();
 
             // Act - Click on search icon
+            _wait.Until(c => Driver.FindElement(_artOfPantsPages.SearchIcon).Displayed);
             _artOfPantsPages.ClickSearchIcon();
             _wait.Until(c => Driver.FindElement(_artOfPantsPages.PantsFinder).Displayed);
 
@@ -318,6 +322,7 @@ namespace TestTube
             _artOfPantsPages.ClickViewMyCart();
 
             // Act - Remove Item from Shopping Cart
+            _wait.Until(c => Driver.FindElement(_artOfPantsPages.RemoveItem).Displayed);
             Driver.FindElement(_artOfPantsPages.RemoveItem).Click();
             _wait.Until(c => Driver.FindElement(_artOfPantsPages.NoPantsHeader).Displayed);
 
@@ -336,8 +341,7 @@ namespace TestTube
         {
             // Arrange - Navigate to url for pants github
             _artOfPantsPages.NavigateToArtOfPantsUrl();
-            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
-            //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
+            _wait.Until(c => Driver.FindElement(_artOfPantsPages.TopNavBarItems).Displayed);
 
             // Act - Get list of top nav bar items
             List<string> navItems = new List<string>(Driver.FindElements(_artOfPantsPages.TopNavBarItems).Select(iw => iw.Text));

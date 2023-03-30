@@ -16,25 +16,25 @@ namespace TestTube.PageObjectModels
     {
         private readonly ChromeDriver Driver;
 
-        internal string noPantsDayUrl = "https://www.timeanddate.com/holidays/fun/no-pants-day";
+        internal string NoPantsDayUrl = "https://www.timeanddate.com/holidays/fun/no-pants-day";
 
-        internal string takeYourPantsForAWalkDayUrl = "https://www.timeanddate.com/holidays/fun/take-your-pants-for-a-walk-day";
+        internal string TakeYourPantsForAWalkDayUrl = "https://www.timeanddate.com/holidays/fun/take-your-pants-for-a-walk-day";
 
         string walkYourPantsHeaderXpath = "//h1[contains(text(), \"Take your Pants for a Walk Day\")]";
-        internal By walkYourPantsHolidayHeader { get => By.XPath(walkYourPantsHeaderXpath); }
+        internal By WalkYourPantsHolidayHeader { get => By.XPath(walkYourPantsHeaderXpath); }
 
         string monthYearDropdownId = "month";
-        internal By monthYearDropdown { get => By.Id(monthYearDropdownId); }
+        internal By MonthYearDropdown { get => By.Id(monthYearDropdownId); }
 
         string july27thXpath = "//a[@href='/holidays/fun/take-your-pants-for-a-walk-day']";
-        internal By july27th { get => By.XPath(july27thXpath); }
+        internal By July27th { get => By.XPath(july27thXpath); }
 
         public PantsHolidaysPages(ChromeDriver driver)
         {
             Driver = driver;
         }
 
-        internal void chooseJuly2023()
+        internal void ChooseJuly2023()
         {
             IWebElement monthYearDropdown = Driver.FindElement(By.Id("month"));
             SelectElement monthYear = new SelectElement(monthYearDropdown);
@@ -43,12 +43,12 @@ namespace TestTube.PageObjectModels
 
         internal void NavigateToNoPantsDayUrl()
         {
-            Driver.Navigate().GoToUrl(noPantsDayUrl);
+            Driver.Navigate().GoToUrl(NoPantsDayUrl);
         }
 
-        internal void CLickOnJuly27th()
+        internal void ClickOnJuly27th()
         {
-            Driver.FindElement(july27th).Click();
+            Driver.FindElement(July27th).Click();
         }
     }
 }

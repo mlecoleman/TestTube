@@ -82,6 +82,8 @@ namespace TestTube
 
             // Act - Click "3" in pagination
             _pantsDotOrg.ClickOnPage3InPagination();
+            _wait.Until(c => Driver.FindElement(_pantsDotOrg.PaginationCurrentPage).Displayed);
+
 
             // Assert - The Url contains page 3 & current Pagination should be 3
             using (new AssertionScope())
@@ -115,6 +117,8 @@ namespace TestTube
 
             // Act - Click on About Me in the nav bar
             Driver.FindElement(_pantsDotOrg.NavBarAboutMe).Click();
+            _wait.Until(c => Driver.FindElement(_pantsDotOrg.AboutMeHeader).Displayed);
+
 
             // Assert - The web address is correct and the About Me header is present
             using (new AssertionScope())
@@ -133,6 +137,8 @@ namespace TestTube
 
             // Act - Use the page search bar to search for Pants
             _pantsDotOrg.SearchBarSendKeys("Pants" + Keys.Return);
+            _wait.Until(c => Driver.FindElement(_pantsDotOrg.SearchResultsHeader).Displayed);
+
 
             // Assert - The header and url contain the search query (Pants)
             using (new AssertionScope())
@@ -175,16 +181,17 @@ namespace TestTube
             _pantsHolidaysPage.NavigateToNoPantsDayUrl();
 
             // Act - Select Date July 27th - Take your Pants for a Walk Day
-            _pantsHolidaysPage.chooseJuly2023();
-            _pantsHolidaysPage.CLickOnJuly27th();
+            _pantsHolidaysPage.ChooseJuly2023();
+            _pantsHolidaysPage.ClickOnJuly27th();
             Driver.SwitchTo().Window(Driver.WindowHandles.Last());
+            _wait.Until(c => Driver.FindElement(_pantsHolidaysPage.WalkYourPantsHolidayHeader).Displayed);
 
 
             // Assert - Take your Pants for a Walk Day Url and Page elements are displayed
             using (new AssertionScope())
             {
-                Driver.FindElement(_pantsHolidaysPage.walkYourPantsHolidayHeader).Displayed.Should().BeTrue();
-                Driver.Url.Should().Be(_pantsHolidaysPage.takeYourPantsForAWalkDayUrl);
+                Driver.FindElement(_pantsHolidaysPage.WalkYourPantsHolidayHeader).Displayed.Should().BeTrue();
+                Driver.Url.Should().Be(_pantsHolidaysPage.TakeYourPantsForAWalkDayUrl);
             }
         }
 
@@ -196,6 +203,8 @@ namespace TestTube
         {
             // Arrange - Navigate to url for file uploader
             _fileUploaderPage.NavigateToFileUploaderUrl();
+            _wait.Until(c => Driver.FindElement(_fileUploaderPage.ChooseFileButton).Displayed);
+
 
             // Act - Choose ann image and upload it
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
@@ -234,6 +243,8 @@ namespace TestTube
             // Arrange - Navigate to url for The Art Of Pants
             // Act - View The Art Of Pants Page
             _artOfPantsPages.NavigateToArtOfPantsUrl();
+            _wait.Until(c => Driver.FindElement(_artOfPantsPages.PantsArtCards).Displayed);
+
 
             // Assert - There should only be 9 Featured Pants Art Cards and 6 Shop More Pants Cards
             using (new AssertionScope())
@@ -328,9 +339,9 @@ namespace TestTube
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
             //wait.Until(c => Driver.FindElement(_redAntsPantsCafe.About).Displayed);
 
-
             // Act - Get list of top nav bar items
             List<string> navItems = new List<string>(Driver.FindElements(_artOfPantsPages.TopNavBarItems).Select(iw => iw.Text));
+            _wait.Until(c => Driver.FindElement(_artOfPantsPages.TopNavBarItems).Displayed);
 
             // Assert - The contributions tooltip appears for No Pants Day (May 5th)
             using (new AssertionScope())
